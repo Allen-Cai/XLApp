@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import utils.UIUtils;
 
-
 /**
  * 最有TitleBar的Activity 可以自定义左中右控件
  */
@@ -55,11 +54,12 @@ public abstract class TitleBarActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.left_layout:
-                    case R.id.leftbar:
+                    case R.id.left_layout_and_attachbar:
+                    /*case R.id.left_layout:
+                    case R.id.leftbar:*/
                         if (misFinish)
-                            //TitleBarActivity.this.finish();
                             TitleBarActivity.this.finish();
+//                            UIUtils.finishActivityWithAnim(TitleBarActivity.this);
                         break;
 
                     default:
@@ -190,11 +190,11 @@ public abstract class TitleBarActivity extends FragmentActivity {
         }
     }
 
-    @Override
+    /*@Override
     public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
-//        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-    }
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+    }*/
 
     public void startActivityNoAm(Intent intent) {
         super.startActivity(intent);
@@ -206,6 +206,7 @@ public abstract class TitleBarActivity extends FragmentActivity {
     }
 
     class TitleBar {
+        RelativeLayout mLeft_layout_and_attachbar;
         FrameLayout mLeft;
         TextView mLeftbar;
         TextView mTipbar;
@@ -223,6 +224,7 @@ public abstract class TitleBarActivity extends FragmentActivity {
             LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT,
                     UIUtils.dip2px(getApplicationContext(), 45));
             layout.setLayoutParams(p);
+            mLeft_layout_and_attachbar = (RelativeLayout) mTitleBarView.findViewById(R.id.left_layout_and_attachbar);
             mLeft = (FrameLayout) mTitleBarView.findViewById(R.id.left_layout);
             mLocationBar = (TextView) mTitleBarView.findViewById(R.id.rightLactionbar);
             mLeftbar = (TextView) mTitleBarView.findViewById(R.id.leftbar);
@@ -230,14 +232,16 @@ public abstract class TitleBarActivity extends FragmentActivity {
             mRightbar = (TextView) mTitleBarView.findViewById(R.id.rightbar);
             mAttach = (TextView) mTitleBarView.findViewById(R.id.attachbar);
             mTipbar = (TextView) mTitleBarView.findViewById(R.id.tip);
-            UIUtils.expandViewTouchDelegate(mLeftbar, 200, 200, 200, 200);
+            //增大回退图按钮的点击区域
+//            UIUtils.expandViewTouchDelegate(mLeftbar, 200, 200, 200, 200);
 //            UIUtils.expandViewTouchDelegate(mRightbar, 150, 150, 150, 150);
         }
 
         public void setListener(OnClickListener listener) {
             mClickListener = listener;
-            mBar.mLeft.setOnClickListener(mClickListener);
-            mBar.mLeftbar.setOnClickListener(mClickListener);
+            mBar.mLeft_layout_and_attachbar.setOnClickListener(mClickListener);
+            /*mBar.mLeft.setOnClickListener(mClickListener);
+            mBar.mLeftbar.setOnClickListener(mClickListener);*/
             mBar.mMiddlebar.setOnClickListener(mClickListener);
             mBar.mRightbar.setOnClickListener(mClickListener);
             mBar.mLocationBar.setOnClickListener(mClickListener);
