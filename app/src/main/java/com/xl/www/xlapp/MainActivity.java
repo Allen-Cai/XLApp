@@ -13,6 +13,7 @@ public class MainActivity extends TitleBarActivity {
         showLeftBar(true);
         showAttachBar(true, "退出");
 
+
     }
 
     @Override
