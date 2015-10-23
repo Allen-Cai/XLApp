@@ -3,6 +3,7 @@
     package="com.xl.www.xlapp">
 
     <application
+        android:name=".exception.XLApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

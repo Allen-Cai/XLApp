@@ -3,6 +3,9 @@ package com.xl.www.xlapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+
 
 /**
  * Created by caishengyan on 2015/10/22.
@@ -10,6 +13,7 @@ import android.os.Bundle;
 public class SplashActivity extends Activity {
 
     private Activity mActivity;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,20 +21,19 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         mActivity = this;
 
-        new Thread(new Runnable() {
+        mHandler = new Handler() {
             @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                    Intent intent = new Intent();
-                    intent.setClass(mActivity, MainActivity.class);
-                    startActivity(intent);
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (msg.what == 0) {
+
+                    startActivity(new Intent(mActivity, MainActivity.class));
                     mActivity.finish();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
-        }).start();
+        };
+
+        mHandler.sendEmptyMessageDelayed(0, 3000);
 
     }
 }
